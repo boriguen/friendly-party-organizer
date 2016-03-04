@@ -4,12 +4,16 @@ FriendlyPartyOrganizer: Helps creating a list of party guests by prioritizing gu
 
 ## Installation
 
-cd <root-folder>
+```
+cd root-folder
 mvn package
+```
 
 ## Usage
 
+```
 java -cp target/friendly-party-organizer-0.0.1-SNAPSHOT.jar com.boriguen.friendlypartyorganizer.CLI 
+```
 
 ## Contributing
 
