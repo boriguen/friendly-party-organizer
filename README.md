@@ -1,6 +1,6 @@
-# Project Name
+# FriendlyPartyOrganizer
 
-FriendlyPartyOrganizer: Helps creating a list of party guests by prioritizing guests with the most connections within the pool of potential guests.
+Helps creating a list of party guests by prioritizing guests with the most connections within the pool of potential guests.
 
 ## Installation
 
