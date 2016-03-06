@@ -2,7 +2,7 @@
  * 
  */
 /**
- * @author boris
+ * @author boriguen
  *
  */
 package com.boriguen.friendlypartyorganizer;
