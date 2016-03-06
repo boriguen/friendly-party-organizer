@@ -8,12 +8,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 /**
  * @author boriguen
  * 
  */
 public class PotentialGuests extends ArrayList<Person> {
 
+	private static final int CONNEXIONS_MIN = 5; // Will be replaced by parameter soon.
+	
 	/**
 	 * 
 	 */
@@ -26,13 +30,20 @@ public class PotentialGuests extends ArrayList<Person> {
 	 *            - the list of potential guests.
 	 */
 	public PotentialGuests(List<Person> potentialGuests,
-			Map<Person, Person> connections) {
+			List<Pair<Person, Person>> connections) {
 		super(potentialGuests);
 		processConnections(connections);
 	}
 
-	public List<Person> listGuests() {
-		return this;
+	/**
+	 * Analyzes the connections of each potential guest and returns a list of final guests
+	 * based on the minimum number of connections required.
+	 * @return the list of final guests.
+	 */
+	public List<Person> listFinalGuests() {
+		List<Person> people = new ArrayList<Person>();
+		this.stream().filter(p -> p.getConnectionCount() >= CONNEXIONS_MIN).forEach(people::add);
+		return people;
 	}
 	
 	/**
@@ -40,16 +51,19 @@ public class PotentialGuests extends ArrayList<Person> {
 	 * of potential guests.
 	 * @param connections - the map of connections between people.
 	 */
-	protected void processConnections(Map<Person, Person> connections) {
-		for (Iterator<Person> it = connections.keySet().iterator(); it
+	protected void processConnections(List<Pair<Person, Person>> connections) {
+		for (Iterator<Pair<Person, Person>> it = connections.iterator(); it
 				.hasNext();) {
-			Person person1 = it.next();
-			Person person2 = connections.get(person1);
+			Pair<Person, Person> pair = it.next();
+			Person person1 = pair.getLeft();
+			Person person2 = pair.getRight();
 			// Check if connection people are in the potential guests list
 			// before making associations.
-			if (contains(person1) && contains(person2)) {
-				person1.addConnection(person2);
-				person2.addConnection(person1);
+			int person1Index = indexOf(person1);
+			int person2Index = indexOf(person2);
+			if (person1Index > -1 && person2Index > -1) {
+				get(person1Index).addConnection(person2);
+				get(person2Index).addConnection(person1);
 			}
 		}
 	}

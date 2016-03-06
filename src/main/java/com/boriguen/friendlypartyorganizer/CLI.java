@@ -5,11 +5,11 @@ package com.boriguen.friendlypartyorganizer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -45,7 +45,7 @@ public class CLI {
 			FriendlyPartyOrganizer fpo = new FriendlyPartyOrganizer(
 					extractPotentialGuests(arguments),
 					extractConnections(arguments));
-			System.out.println(new JSONArray(fpo.listGuests()).toString());
+			System.out.println(new JSONArray(fpo.listFinalGuests()).toString());
 		} catch (JSONException e) {
 			LOGGER.error(e);
 		} catch (MissingArgumentException e) {
@@ -79,7 +79,7 @@ public class CLI {
 	 * @throws JSONException - if the argument value is not a JSON object.
 	 * @throws MissingArgumentException - if the connections argument is missing.
 	 */
-	protected static Map<Person, Person> extractConnections(
+	protected static List<Pair<Person, Person>> extractConnections(
 			List<String> arguments) throws JSONException,
 			MissingArgumentException {
 		return generateConnections(new JSONObject(extractArgumentValue(arguments,
@@ -112,7 +112,7 @@ public class CLI {
 	 * @return a list of people.
 	 */
 	private static List<Person> generatePeople(JSONArray array) {
-		List<Person> people = new ArrayList<Person>(20);
+		List<Person> people = new ArrayList<>(20);
 		for (Iterator<Object> it = array.iterator(); it.hasNext();) {
 			people.add(new Person((String) it.next()));
 		}
@@ -124,12 +124,12 @@ public class CLI {
 	 * @param object - the JSON object containing connections related data. 
 	 * @return a map of people.
 	 */
-	private static Map<Person, Person> generateConnections(JSONObject object) {
-		Map<Person, Person> connections = new HashMap<Person, Person>(40);
+	private static List<Pair<Person, Person>> generateConnections(JSONObject object) {
+		List<Pair<Person, Person>> connections = new ArrayList<>(40);
 		for (Iterator<String> it = object.keys(); it.hasNext();) {
 			Person person1 = new Person(it.next());
 			Person person2 = new Person(object.getString(person1.getName()));
-			connections.put(person1, person2);
+			connections.add(new ImmutablePair<>(person1, person2));
 		}
 		return connections;
 	}

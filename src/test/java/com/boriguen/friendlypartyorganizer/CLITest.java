@@ -4,8 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,10 +51,10 @@ public class CLITest {
 	@Test
 	public void extractConnectionsSuccessTest() throws JSONException,
 			MissingArgumentException {
-		Map<Person, Person> connections = CLI
+		List<Pair<Person, Person>> connections = CLI
 				.extractConnections(CLITest.successArguments);
-		assertEquals(new Person("Alan"), connections.get(new Person("Bob")));
-		assertEquals(new Person("Dan"), connections.get(new Person("Alan")));
+		assertEquals(new Person("Alan"), connections.get(0).getRight());
+		assertEquals(new Person("Dan"), connections.get(1).getRight());
 	}
 
 	@Test(expected = MissingArgumentException.class)
