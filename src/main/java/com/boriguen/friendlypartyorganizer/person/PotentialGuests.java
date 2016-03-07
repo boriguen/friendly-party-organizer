@@ -14,23 +14,23 @@ import org.apache.commons.lang3.tuple.Pair;
  */
 public class PotentialGuests extends ArrayList<Person> {
 
-	private static final int CONNEXIONS_MIN = 5; // Will be replaced by
-													// parameter soon.
-
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -9121121464424366449L;
 
+	private int connectionsMin;
+	
 	/**
 	 * Instantiates a PotentialGuests object.
 	 * 
 	 * @param potentialGuests
 	 *            - the list of potential guests.
 	 */
-	public PotentialGuests(final List<Person> potentialGuests, final List<Pair<Person, Person>> connections) {
+	public PotentialGuests(final List<Person> potentialGuests, final List<Pair<Person, Person>> connections, int connectionsMin) {
 		super(potentialGuests);
 		processConnections(connections);
+		this.connectionsMin = connectionsMin;
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class PotentialGuests extends ArrayList<Person> {
 	 */
 	public List<Person> listFinalGuests() {
 		final List<Person> people = new ArrayList<>();
-		this.stream().filter(p -> p.getConnectionCount() >= CONNEXIONS_MIN).forEach(people::add);
+		this.stream().filter(p -> p.getConnectionCount() >= this.connectionsMin).forEach(people::add);
 		return people;
 	}
 

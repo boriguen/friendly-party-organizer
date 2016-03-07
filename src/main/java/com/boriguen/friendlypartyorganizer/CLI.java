@@ -26,6 +26,9 @@ public class CLI {
 	/** Contains the logger. */
 	private static final Logger LOGGER = Logger.getLogger(CLI.class);
 
+	/** Contains the number of minimum connections needed.*/
+	public static final int CONNEXIONS_MIN = 5;
+	
 	/**
 	 * Contains the key to be used to identify the potential guests argument.
 	 */
@@ -44,7 +47,7 @@ public class CLI {
 		List<String> arguments = Arrays.asList(args);
 		try {
 			FriendlyPartyOrganizer fpo = new FriendlyPartyOrganizer(extractPotentialGuests(arguments),
-					extractConnections(arguments));
+					extractConnections(arguments), CONNEXIONS_MIN);
 			LOGGER.info(new JSONArray(fpo.listFinalGuests()).toString());
 		} catch (JSONException | MissingArgumentException e) {
 			LOGGER.error(e.getMessage(), e);

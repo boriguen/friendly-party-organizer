@@ -38,7 +38,8 @@ public class FriendlyPartyOrganizerTest {
 
 	@Test
 	public void listGuestsSuccessTest() {
-		List<Person> finalGuests = new FriendlyPartyOrganizer(this.potentialGuests, this.connections).listFinalGuests();
+		List<Person> finalGuests = new FriendlyPartyOrganizer(this.potentialGuests, this.connections,
+				CLI.CONNEXIONS_MIN).listFinalGuests();
 		assertNotNull(finalGuests);
 		assertTrue(finalGuests.contains(new Person("Bob")));
 		assertTrue(finalGuests.contains(new Person("Alan")));
