@@ -48,7 +48,7 @@ public class CLI {
 					extractConnections(arguments));
 			System.out.println(new JSONArray(fpo.listFinalGuests()).toString());
 		} catch (JSONException | MissingArgumentException e) {
-			LOGGER.error(e);
+			LOGGER.error(e.getMessage(), e);
 		}
 	}
 
