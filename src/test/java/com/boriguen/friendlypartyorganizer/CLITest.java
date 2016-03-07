@@ -19,8 +19,9 @@ public class CLITest {
 
 	@Before
 	public void setUp() {
-		successArguments = Arrays.asList(CLI.CONNECTIONS_KEY, "{\"Bob\": \"Alan\", \"Alan\": \"Dan\"}",
-				CLI.POTENTIAL_GUESTS_KEY, "[\"Bob\", \"Alan\"]");
+		successArguments = Arrays.asList(CLI.CONNECTIONS_KEY,
+				"[\"Bob:Alan\", \"Bob:Dan\", \"Bob:Carl\", \"Bob:Kristine\", \"Bob:Andrea\"]", CLI.POTENTIAL_GUESTS_KEY,
+				"[\"Bob\", \"Alan\", \"Dan\", \"Carl\", \"Kristine\", \"Andrea\"]");
 	}
 
 	@Test

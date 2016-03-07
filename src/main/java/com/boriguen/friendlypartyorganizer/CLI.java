@@ -13,7 +13,6 @@ import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.boriguen.friendlypartyorganizer.exception.MissingArgumentException;
 import com.boriguen.friendlypartyorganizer.person.Person;
@@ -86,7 +85,7 @@ public class CLI {
 	 */
 	protected static List<Pair<Person, Person>> extractConnections(final List<String> arguments)
 			throws JSONException, MissingArgumentException {
-		return generateConnections(new JSONObject(extractArgumentValue(arguments, CONNECTIONS_KEY)));
+		return generateConnections(new JSONArray(extractArgumentValue(arguments, CONNECTIONS_KEY)));
 	}
 
 	/**
@@ -132,12 +131,11 @@ public class CLI {
 	 *            - the JSON object containing connections related data.
 	 * @return a map of people.
 	 */
-	private static List<Pair<Person, Person>> generateConnections(final JSONObject object) {
+	private static List<Pair<Person, Person>> generateConnections(final JSONArray array) {
 		List<Pair<Person, Person>> connections = new ArrayList<>(40);
-		object.keySet().stream().forEach(key -> {
-			Person person1 = new Person(key);
-			Person person2 = new Person(object.getString(person1.getName()));
-			connections.add(new ImmutablePair<>(person1, person2));
+		array.forEach(object -> {
+			String[] split =  ((String) object).split(":");
+			connections.add(new ImmutablePair<>(new Person(split[0]), new Person(split[1])));
 		});
 		return connections;
 	}

@@ -12,7 +12,7 @@ mvn package
 ## Usage
 
 ```
-java -cp target/friendly-party-organizer-0.0.1-SNAPSHOT.jar com.boriguen.friendlypartyorganizer.CLI 
+java -cp target/friendly-party-organizer-0.0.1-SNAPSHOT.jar com.boriguen.friendlypartyorganizer.CLI -c "[\"Bob:Alan\", \"Bob:Dan\", \"Bob:Carl\", \"Bob:Kristine\", \"Bob:Andrea\"]" -g "[\"Bob\", \"Alan\", \"Dan\", \"Carl\", \"Kristine\", \"Andrea\"]"
 ```
 
 ## Contributing
