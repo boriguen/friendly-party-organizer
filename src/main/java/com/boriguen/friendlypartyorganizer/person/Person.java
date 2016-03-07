@@ -6,29 +6,35 @@ import java.util.Set;
 public class Person {
 	/** The name of the person. */
 	String name = null;
-	
+
 	/** The people connected to this Person. */
 	Set<Person> connections = null;
-	
+
 	/**
 	 * Instantiates a Person object.
-	 * @param name - name representing the full name of the person, e.g. John B. Smith.
+	 * 
+	 * @param name
+	 *            - name representing the full name of the person, e.g. John B.
+	 *            Smith.
 	 */
 	public Person(String name) {
 		this.name = name;
 	}
-	
+
 	/**
 	 * Gets the name of this.
+	 * 
 	 * @return the name of this.
 	 */
 	public String getName() {
 		return this.name;
 	}
-	
+
 	/**
 	 * Adds a connection to this.
-	 * @param person - person to connect with this.
+	 * 
+	 * @param person
+	 *            - person to connect with this.
 	 */
 	public void addConnection(Person person) {
 		if (this.connections == null) {
@@ -36,16 +42,19 @@ public class Person {
 		}
 		this.connections.add(person);
 	}
-	
+
 	/**
 	 * Returns back the number of connections.
+	 * 
 	 * @return the number of connections.
 	 */
 	public int getConnectionCount() {
 		return this.connections == null ? 0 : this.connections.size();
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -56,7 +65,9 @@ public class Person {
 		return result;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -76,7 +87,9 @@ public class Person {
 		return true;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

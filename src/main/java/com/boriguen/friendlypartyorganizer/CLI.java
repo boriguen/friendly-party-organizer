@@ -27,7 +27,9 @@ public class CLI {
 	/** Contains the logger. */
 	private static final Logger LOGGER = Logger.getLogger(CLI.class);
 
-	/** Contains the key to be used to identify the potential guests argument. */
+	/**
+	 * Contains the key to be used to identify the potential guests argument.
+	 */
 	public static final String POTENTIAL_GUESTS_KEY = "-g";
 
 	/** Contains the key to be used to identify the connections argument. */
@@ -42,8 +44,7 @@ public class CLI {
 		BasicConfigurator.configure();
 		List<String> arguments = Arrays.asList(args);
 		try {
-			FriendlyPartyOrganizer fpo = new FriendlyPartyOrganizer(
-					extractPotentialGuests(arguments),
+			FriendlyPartyOrganizer fpo = new FriendlyPartyOrganizer(extractPotentialGuests(arguments),
 					extractConnections(arguments));
 			System.out.println(new JSONArray(fpo.listFinalGuests()).toString());
 		} catch (JSONException | MissingArgumentException e) {
@@ -57,13 +58,14 @@ public class CLI {
 	 * @param arguments
 	 *            - the command-line arguments.
 	 * @return the list of potential guests.
-	 * @throws JSONException - if the argument value is not a JSON array.
-	 * @throws MissingArgumentException - if the potential guests argument is missing.
+	 * @throws JSONException
+	 *             - if the argument value is not a JSON array.
+	 * @throws MissingArgumentException
+	 *             - if the potential guests argument is missing.
 	 */
 	protected static List<Person> extractPotentialGuests(List<String> arguments)
 			throws JSONException, MissingArgumentException {
-		return generatePeople(new JSONArray(extractArgumentValue(arguments,
-				POTENTIAL_GUESTS_KEY)));
+		return generatePeople(new JSONArray(extractArgumentValue(arguments, POTENTIAL_GUESTS_KEY)));
 	}
 
 	/**
@@ -73,23 +75,28 @@ public class CLI {
 	 * @param arguments
 	 *            - the command-line arguments.
 	 * @return the pairs of connection between potential guests (may also
-	 *         contain people not in the list of potential guests at this point).
-	 * @throws JSONException - if the argument value is not a JSON object.
-	 * @throws MissingArgumentException - if the connections argument is missing.
+	 *         contain people not in the list of potential guests at this
+	 *         point).
+	 * @throws JSONException
+	 *             - if the argument value is not a JSON object.
+	 * @throws MissingArgumentException
+	 *             - if the connections argument is missing.
 	 */
-	protected static List<Pair<Person, Person>> extractConnections(
-			List<String> arguments) throws JSONException,
-			MissingArgumentException {
-		return generateConnections(new JSONObject(extractArgumentValue(arguments,
-				CONNECTIONS_KEY)));
+	protected static List<Pair<Person, Person>> extractConnections(List<String> arguments)
+			throws JSONException, MissingArgumentException {
+		return generateConnections(new JSONObject(extractArgumentValue(arguments, CONNECTIONS_KEY)));
 	}
 
 	/**
 	 * Extracts the value of a given argument.
-	 * @param arguments - the command-line arguments.
-	 * @param argumentKey - the argument key for which to look for the value.
+	 * 
+	 * @param arguments
+	 *            - the command-line arguments.
+	 * @param argumentKey
+	 *            - the argument key for which to look for the value.
 	 * @return the argument value.
-	 * @throws MissingArgumentException - if the given argument key is missing.
+	 * @throws MissingArgumentException
+	 *             - if the given argument key is missing.
 	 */
 	private static String extractArgumentValue(List<String> arguments, String argumentKey)
 			throws MissingArgumentException {
@@ -98,15 +105,16 @@ public class CLI {
 		if (index > -1) {
 			string = arguments.get(index + 1);
 		} else {
-			throw new MissingArgumentException("Missing argument: "
-					+ argumentKey);
+			throw new MissingArgumentException("Missing argument: " + argumentKey);
 		}
 		return string;
 	}
 
 	/**
 	 * Generates a list of people from a JSON array.
-	 * @param array - the JSON array containing people related data.
+	 * 
+	 * @param array
+	 *            - the JSON array containing people related data.
 	 * @return a list of people.
 	 */
 	private static List<Person> generatePeople(JSONArray array) {
@@ -119,7 +127,9 @@ public class CLI {
 
 	/**
 	 * Generates a map of people from a JSON object.
-	 * @param object - the JSON object containing connections related data. 
+	 * 
+	 * @param object
+	 *            - the JSON object containing connections related data.
 	 * @return a map of people.
 	 */
 	private static List<Pair<Person, Person>> generateConnections(JSONObject object) {

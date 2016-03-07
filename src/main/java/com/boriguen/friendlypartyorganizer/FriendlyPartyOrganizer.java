@@ -27,16 +27,13 @@ public class FriendlyPartyOrganizer {
 	 * @param connections
 	 *            - the pairs of connections between potential guests.
 	 */
-	public FriendlyPartyOrganizer(List<Person> potentialGuests,
-			List<Pair<Person, Person>> connections) {
+	public FriendlyPartyOrganizer(List<Person> potentialGuests, List<Pair<Person, Person>> connections) {
 		if (potentialGuests == null || potentialGuests.size() == 0) {
-			throw new IllegalArgumentException(
-					"The list of potential guests cannot be null nor empty");
+			throw new IllegalArgumentException("The list of potential guests cannot be null nor empty");
 		}
 
 		if (connections == null || connections.size() == 0) {
-			throw new IllegalArgumentException(
-					"The map of connections cannot be null nor empty.");
+			throw new IllegalArgumentException("The map of connections cannot be null nor empty.");
 		}
 
 		this.potentialGuests = new PotentialGuests(potentialGuests, connections);

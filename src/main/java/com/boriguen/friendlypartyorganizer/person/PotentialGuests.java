@@ -6,7 +6,6 @@ package com.boriguen.friendlypartyorganizer.person;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -16,8 +15,9 @@ import org.apache.commons.lang3.tuple.Pair;
  */
 public class PotentialGuests extends ArrayList<Person> {
 
-	private static final int CONNEXIONS_MIN = 5; // Will be replaced by parameter soon.
-	
+	private static final int CONNEXIONS_MIN = 5; // Will be replaced by
+													// parameter soon.
+
 	/**
 	 * 
 	 */
@@ -29,15 +29,15 @@ public class PotentialGuests extends ArrayList<Person> {
 	 * @param potentialGuests
 	 *            - the list of potential guests.
 	 */
-	public PotentialGuests(List<Person> potentialGuests,
-			List<Pair<Person, Person>> connections) {
+	public PotentialGuests(List<Person> potentialGuests, List<Pair<Person, Person>> connections) {
 		super(potentialGuests);
 		processConnections(connections);
 	}
 
 	/**
-	 * Analyzes the connections of each potential guest and returns a list of final guests
-	 * based on the minimum number of connections required.
+	 * Analyzes the connections of each potential guest and returns a list of
+	 * final guests based on the minimum number of connections required.
+	 * 
 	 * @return the list of final guests.
 	 */
 	public List<Person> listFinalGuests() {
@@ -45,15 +45,16 @@ public class PotentialGuests extends ArrayList<Person> {
 		this.stream().filter(p -> p.getConnectionCount() >= CONNEXIONS_MIN).forEach(people::add);
 		return people;
 	}
-	
+
 	/**
-	 * Processes connections by adding connections to people part of the list
-	 * of potential guests.
-	 * @param connections - the map of connections between people.
+	 * Processes connections by adding connections to people part of the list of
+	 * potential guests.
+	 * 
+	 * @param connections
+	 *            - the map of connections between people.
 	 */
 	protected void processConnections(List<Pair<Person, Person>> connections) {
-		for (Iterator<Pair<Person, Person>> it = connections.iterator(); it
-				.hasNext();) {
+		for (Iterator<Pair<Person, Person>> it = connections.iterator(); it.hasNext();) {
 			Pair<Person, Person> pair = it.next();
 			Person person1 = pair.getLeft();
 			Person person2 = pair.getRight();

@@ -19,56 +19,45 @@ public class CLITest {
 
 	@Before
 	public void setUp() {
-		successArguments = Arrays.asList(CLI.CONNECTIONS_KEY,
-				"{\"Bob\": \"Alan\", \"Alan\": \"Dan\"}",
+		successArguments = Arrays.asList(CLI.CONNECTIONS_KEY, "{\"Bob\": \"Alan\", \"Alan\": \"Dan\"}",
 				CLI.POTENTIAL_GUESTS_KEY, "[\"Bob\", \"Alan\"]");
 	}
 
 	@Test
-	public void extractPotentialGuestsSuccessTest() throws JSONException,
-			MissingArgumentException {
-		List<Person> people = CLI
-				.extractPotentialGuests(CLITest.successArguments);
+	public void extractPotentialGuestsSuccessTest() throws JSONException, MissingArgumentException {
+		List<Person> people = CLI.extractPotentialGuests(CLITest.successArguments);
 		assertEquals(new Person("Bob"), people.get(0));
 		assertEquals(new Person("Alan"), people.get(1));
 	}
 
 	@Test(expected = MissingArgumentException.class)
-	public void extractPotentialGuestsMissingArgumentExceptionTest()
-			throws JSONException, MissingArgumentException {
+	public void extractPotentialGuestsMissingArgumentExceptionTest() throws JSONException, MissingArgumentException {
 		List<String> arguments = Arrays.asList("-e", "failure");
 		CLI.extractPotentialGuests(arguments);
 	}
 
 	@Test(expected = JSONException.class)
-	public void extractPotentialGuestsJSONExceptionTest() throws JSONException,
-			MissingArgumentException {
-		List<String> arguments = Arrays.asList(CLI.POTENTIAL_GUESTS_KEY,
-				"[\"Bob, Alan]");
+	public void extractPotentialGuestsJSONExceptionTest() throws JSONException, MissingArgumentException {
+		List<String> arguments = Arrays.asList(CLI.POTENTIAL_GUESTS_KEY, "[\"Bob, Alan]");
 		CLI.extractPotentialGuests(arguments);
 	}
 
 	@Test
-	public void extractConnectionsSuccessTest() throws JSONException,
-			MissingArgumentException {
-		List<Pair<Person, Person>> connections = CLI
-				.extractConnections(CLITest.successArguments);
+	public void extractConnectionsSuccessTest() throws JSONException, MissingArgumentException {
+		List<Pair<Person, Person>> connections = CLI.extractConnections(CLITest.successArguments);
 		assertEquals(new Person("Alan"), connections.get(0).getRight());
 		assertEquals(new Person("Dan"), connections.get(1).getRight());
 	}
 
 	@Test(expected = MissingArgumentException.class)
-	public void extractConnectionsMissingArgumentExceptionTest()
-			throws JSONException, MissingArgumentException {
+	public void extractConnectionsMissingArgumentExceptionTest() throws JSONException, MissingArgumentException {
 		List<String> arguments = Arrays.asList("-e", "failure");
 		CLI.extractConnections(arguments);
 	}
 
 	@Test(expected = JSONException.class)
-	public void extractConnectionsJSONExceptionTest() throws JSONException,
-			MissingArgumentException {
-		List<String> arguments = Arrays.asList(CLI.CONNECTIONS_KEY,
-				"{Bob; Alan}");
+	public void extractConnectionsJSONExceptionTest() throws JSONException, MissingArgumentException {
+		List<String> arguments = Arrays.asList(CLI.CONNECTIONS_KEY, "{Bob; Alan}");
 		CLI.extractConnections(arguments);
 	}
 
