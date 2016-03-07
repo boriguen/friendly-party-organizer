@@ -1,6 +1,6 @@
 package com.boriguen.friendlypartyorganizer;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,6 +26,7 @@ public class CLITest {
 	@Test
 	public void extractPotentialGuestsSuccessTest() throws JSONException, MissingArgumentException {
 		List<Person> people = CLI.extractPotentialGuests(CLITest.successArguments);
+		assertNotNull(people);
 		assertEquals(new Person("Bob"), people.get(0));
 		assertEquals(new Person("Alan"), people.get(1));
 	}
@@ -45,6 +46,7 @@ public class CLITest {
 	@Test
 	public void extractConnectionsSuccessTest() throws JSONException, MissingArgumentException {
 		List<Pair<Person, Person>> connections = CLI.extractConnections(CLITest.successArguments);
+		assertNotNull(connections);
 		assertEquals(new Person("Alan"), connections.get(0).getRight());
 		assertEquals(new Person("Dan"), connections.get(1).getRight());
 	}

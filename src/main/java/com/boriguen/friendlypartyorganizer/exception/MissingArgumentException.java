@@ -6,7 +6,7 @@ public class MissingArgumentException extends Exception {
 	 */
 	private static final long serialVersionUID = -7847221165168427766L;
 
-	public MissingArgumentException(String message) {
+	public MissingArgumentException(final String message) {
 		super(message);
 	}
 }

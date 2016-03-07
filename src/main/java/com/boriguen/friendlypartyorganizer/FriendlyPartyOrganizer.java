@@ -17,7 +17,7 @@ import com.boriguen.friendlypartyorganizer.person.PotentialGuests;
 public class FriendlyPartyOrganizer {
 
 	/** Contains the list of potential guests. */
-	PotentialGuests potentialGuests = null;
+	private PotentialGuests potentialGuests;
 
 	/**
 	 * Instantiates a FriendlyPartyOrganizer object.
@@ -27,7 +27,7 @@ public class FriendlyPartyOrganizer {
 	 * @param connections
 	 *            - the pairs of connections between potential guests.
 	 */
-	public FriendlyPartyOrganizer(List<Person> potentialGuests, List<Pair<Person, Person>> connections) {
+	public FriendlyPartyOrganizer(final List<Person> potentialGuests, final List<Pair<Person, Person>> connections) {
 		if (potentialGuests == null || potentialGuests.size() == 0) {
 			throw new IllegalArgumentException("The list of potential guests cannot be null nor empty");
 		}

@@ -5,7 +5,6 @@ package com.boriguen.friendlypartyorganizer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.tuple.ImmutablePair;
@@ -46,7 +45,7 @@ public class CLI {
 		try {
 			FriendlyPartyOrganizer fpo = new FriendlyPartyOrganizer(extractPotentialGuests(arguments),
 					extractConnections(arguments));
-			System.out.println(new JSONArray(fpo.listFinalGuests()).toString());
+			LOGGER.info(new JSONArray(fpo.listFinalGuests()).toString());
 		} catch (JSONException | MissingArgumentException e) {
 			LOGGER.error(e.getMessage(), e);
 		}
@@ -63,7 +62,7 @@ public class CLI {
 	 * @throws MissingArgumentException
 	 *             - if the potential guests argument is missing.
 	 */
-	protected static List<Person> extractPotentialGuests(List<String> arguments)
+	protected static List<Person> extractPotentialGuests(final List<String> arguments)
 			throws JSONException, MissingArgumentException {
 		return generatePeople(new JSONArray(extractArgumentValue(arguments, POTENTIAL_GUESTS_KEY)));
 	}
@@ -82,7 +81,7 @@ public class CLI {
 	 * @throws MissingArgumentException
 	 *             - if the connections argument is missing.
 	 */
-	protected static List<Pair<Person, Person>> extractConnections(List<String> arguments)
+	protected static List<Pair<Person, Person>> extractConnections(final List<String> arguments)
 			throws JSONException, MissingArgumentException {
 		return generateConnections(new JSONObject(extractArgumentValue(arguments, CONNECTIONS_KEY)));
 	}
@@ -98,9 +97,9 @@ public class CLI {
 	 * @throws MissingArgumentException
 	 *             - if the given argument key is missing.
 	 */
-	private static String extractArgumentValue(List<String> arguments, String argumentKey)
+	private static String extractArgumentValue(final List<String> arguments, final String argumentKey)
 			throws MissingArgumentException {
-		String string = null;
+		String string;
 		int index = arguments.indexOf(argumentKey);
 		if (index > -1) {
 			string = arguments.get(index + 1);
@@ -117,11 +116,9 @@ public class CLI {
 	 *            - the JSON array containing people related data.
 	 * @return a list of people.
 	 */
-	private static List<Person> generatePeople(JSONArray array) {
+	private static List<Person> generatePeople(final JSONArray array) {
 		List<Person> people = new ArrayList<>(20);
-		for (Iterator<Object> it = array.iterator(); it.hasNext();) {
-			people.add(new Person((String) it.next()));
-		}
+		array.forEach(object -> people.add(new Person((String) object)));
 		return people;
 	}
 
@@ -132,13 +129,13 @@ public class CLI {
 	 *            - the JSON object containing connections related data.
 	 * @return a map of people.
 	 */
-	private static List<Pair<Person, Person>> generateConnections(JSONObject object) {
+	private static List<Pair<Person, Person>> generateConnections(final JSONObject object) {
 		List<Pair<Person, Person>> connections = new ArrayList<>(40);
-		for (Iterator<String> it = object.keys(); it.hasNext();) {
-			Person person1 = new Person(it.next());
+		object.keySet().stream().forEach(key -> {
+			Person person1 = new Person(key);
 			Person person2 = new Person(object.getString(person1.getName()));
 			connections.add(new ImmutablePair<>(person1, person2));
-		}
+		});
 		return connections;
 	}
 

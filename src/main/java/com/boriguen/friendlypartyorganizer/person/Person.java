@@ -5,10 +5,10 @@ import java.util.Set;
 
 public class Person {
 	/** The name of the person. */
-	String name = null;
+	private String name;
 
 	/** The people connected to this Person. */
-	Set<Person> connections = null;
+	private Set<Person> connections;
 
 	/**
 	 * Instantiates a Person object.
@@ -17,7 +17,7 @@ public class Person {
 	 *            - name representing the full name of the person, e.g. John B.
 	 *            Smith.
 	 */
-	public Person(String name) {
+	public Person(final String name) {
 		this.name = name;
 	}
 
@@ -36,9 +36,9 @@ public class Person {
 	 * @param person
 	 *            - person to connect with this.
 	 */
-	public void addConnection(Person person) {
+	public void addConnection(final Person person) {
 		if (this.connections == null) {
-			this.connections = new HashSet<Person>();
+			this.connections = new HashSet<>();
 		}
 		this.connections.add(person);
 	}

@@ -4,7 +4,6 @@
 package com.boriguen.friendlypartyorganizer.person;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.lang3.tuple.Pair;
@@ -29,7 +28,7 @@ public class PotentialGuests extends ArrayList<Person> {
 	 * @param potentialGuests
 	 *            - the list of potential guests.
 	 */
-	public PotentialGuests(List<Person> potentialGuests, List<Pair<Person, Person>> connections) {
+	public PotentialGuests(final List<Person> potentialGuests, final List<Pair<Person, Person>> connections) {
 		super(potentialGuests);
 		processConnections(connections);
 	}
@@ -41,7 +40,7 @@ public class PotentialGuests extends ArrayList<Person> {
 	 * @return the list of final guests.
 	 */
 	public List<Person> listFinalGuests() {
-		List<Person> people = new ArrayList<Person>();
+		final List<Person> people = new ArrayList<>();
 		this.stream().filter(p -> p.getConnectionCount() >= CONNEXIONS_MIN).forEach(people::add);
 		return people;
 	}
@@ -53,11 +52,10 @@ public class PotentialGuests extends ArrayList<Person> {
 	 * @param connections
 	 *            - the map of connections between people.
 	 */
-	protected void processConnections(List<Pair<Person, Person>> connections) {
-		for (Iterator<Pair<Person, Person>> it = connections.iterator(); it.hasNext();) {
-			Pair<Person, Person> pair = it.next();
-			Person person1 = pair.getLeft();
-			Person person2 = pair.getRight();
+	protected void processConnections(final List<Pair<Person, Person>> connections) {
+		connections.stream().forEach(pair -> {
+			final Person person1 = pair.getLeft();
+			final Person person2 = pair.getRight();
 			// Check if connection people are in the potential guests list
 			// before making associations.
 			int person1Index = indexOf(person1);
@@ -66,7 +64,7 @@ public class PotentialGuests extends ArrayList<Person> {
 				get(person1Index).addConnection(person2);
 				get(person2Index).addConnection(person1);
 			}
-		}
+		});
 	}
 
 }
